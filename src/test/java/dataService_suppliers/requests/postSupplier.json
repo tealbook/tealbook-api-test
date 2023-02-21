@@ -1,0 +1,22 @@
+{
+  "supplier_name": "abcdef inc",
+  "supplier_description": "test",
+  "cage_code": "test",
+  "twitter_id": "test",
+  "naics": "test",
+  "supplier_dba_name": "test",
+  "date_founded": "1989-01-01",
+  "meta_data": {},
+  "country_of_incorporation": "test",
+  "duns_id": "test",
+  "state_of_incorporation": "test",
+  "head_count": "test",
+  "linkedin_url": "test",
+  "yearly_revenue": "test",
+  "website_url": "test",
+  "lei": "test",
+  "web_domain": "test",
+  "entity_source": "test",
+  "facebook_url": "test",
+  "email_domain": "test"
+}

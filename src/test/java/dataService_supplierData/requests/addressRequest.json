@@ -1,0 +1,15 @@
+{
+  "address_type": "physical",
+  "address": {
+    "state": "string",
+    "addressline": "string",
+    "country": "string",
+    "city": "string",
+    "entity_source": "vendor",
+    "pcode": "string",
+    "address_string": "string",
+    "fax_number": "string",
+    "phone_number": "string"
+  },
+  "org_id": "3d5e1780-8c91-4e3d-92d0-ad40bb490660"
+}

@@ -1,0 +1,18 @@
+{
+  "certification": {
+    "expires_at": "2024-06-28T08:51:29",
+    "sub_type": "",
+    "meta_data": {},
+    "load_date": "2023-02-20",
+    "attachment": {},
+    "certification_type": "diversity",
+    "entity_source": "sam",
+    "category": "diversity",
+    "agency_issued_date": "2020-02-20",
+    "certification_number": "123456",
+    "certification_url": "string",
+    "certifying_body": "sam.gov",
+    "sub_category": "SBE"
+  },
+  "org_id": "3d5e1780-8c91-4e3d-92d0-ad40bb490660"
+}

@@ -1,0 +1,7 @@
+{
+  "pipeline_type": "client_data_vendor",
+  "pipeline_name": "vendor_master",
+  "source": {
+    "file_name": "20230112_1676494884.raw.csv"
+  }
+}

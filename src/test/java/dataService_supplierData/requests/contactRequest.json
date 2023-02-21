@@ -1,0 +1,18 @@
+{
+  "contact": {
+    "title": "TEST",
+    "location_string": "TEST",
+    "preferred_language_code": "TEST",
+    "name_string": "string",
+    "meta_data": {},
+    "middle_name": "string",
+    "entity_source": "VENDOR",
+    "last_name": "string",
+    "contact_description": "TEST",
+    "first_name": "string",
+    "mobile_phone_number": "string",
+    "email": "string"
+  },
+  "contact_type": "TEST",
+  "org_id": "3d5e1780-8c91-4e3d-92d0-ad40bb490660"
+}

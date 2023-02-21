@@ -1,0 +1,11 @@
+{
+  "diversity_category": "string",
+  "diversity_status": "string",
+  "company_name": "222236",
+  "internal_supplier_id": "12334",
+  "known_as_supplier_id": "",
+  "supplier_buyer_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "internal_supplier_id_source": "string",
+  "preferred_status": "string",
+  "internal_source_name": "string"
+}
