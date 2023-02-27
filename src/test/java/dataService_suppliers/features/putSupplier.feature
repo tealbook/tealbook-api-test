@@ -74,6 +74,7 @@ Feature: suppliers - PUT supplier
     Given path '/data/suppliers'
     * path randomUuid
     And header Authorization = tealbookAdminToken
+    When request postSupplierRequestBody
     When method PUT
     Then status 404
     And print 'Response Body -> ',response
@@ -82,7 +83,9 @@ Feature: suppliers - PUT supplier
 
   @regression @smoke
   Scenario Outline: put supplier details 401
+    * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
     Given path '/data/suppliers'
+    * path randomUuid
     And header Authorization = '<key>'
     When request postSupplierRequestBody
     And print 'Request Body -> ',postSupplierRequestBody

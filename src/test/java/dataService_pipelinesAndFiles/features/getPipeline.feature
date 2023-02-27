@@ -8,22 +8,24 @@ Feature: pipelines - GET pipelines
   Scenario Outline: get pipelines details
     Given path '/data/pipelines'
     And header Authorization = tealbookAdminToken
-    * def query = {scope:'all', status:'<key>',org_id : '<string>'}
+    * def randomDigit = Java.type('utils.GenerateRandomVariables').randomDigit()
+    * def query = {scope:'all', status:'<key>',org_id : '<string>', limit: '<limit>'}
     And params query
     When method GET
     Then status 200
     And print 'Response Body -> ',response
-    * def responses = get response[*]
+    * def responses = get response.data[*]
     * def statuses = $responses[*].status
     And print statuses
     And match each statuses == '<key>'
+    And assert statuses.length <= <limit>
     Examples:
-      | key      |
-      | running  |
-      | stopped  |
-      | pending  |
-      | failed   |
-      | finished |
+      | key      | limit |
+      | running  | 15    |
+      | stopped  | 5     |
+      | pending  | 7     |
+      | failed   | 8     |
+      | finished | 9     |
 
 
   @regression @smoke
@@ -48,8 +50,8 @@ Feature: pipelines - GET pipelines
     And print 'Response Body -> ',response
     And assert response.description=='<response>'
     Examples:
-      | key          | response                   |
-      | ksjd         | no bearer token in request |
+      | key  | response                   |
+      | ksjd | no bearer token in request |
 
 
 

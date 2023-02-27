@@ -17,7 +17,7 @@ public class TestRunner {
     @Test
     public void testParallel() {
         KarateHook hook = new KarateHook();
-        Runner.Builder rb = Runner.builder().path().tags("@regression").outputCucumberJson(true).relativeTo(getClass()).hook(hook);
+        Runner.Builder rb = Runner.builder().path().tags("@accounts").outputCucumberJson(true).relativeTo(getClass()).hook(hook);
         Results results = rb.parallel(1);
         generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());

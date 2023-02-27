@@ -4,7 +4,6 @@ Feature: supplier buy - DELETE supplier buyer known as
     * url baseURL
     * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
 
-
   @regression @smoke
   Scenario: delete supplier buyer known as
     * def createSupplierBuyerCall = call read('postBuyerKnownAs.feature@postBuyer')
@@ -16,7 +15,6 @@ Feature: supplier buy - DELETE supplier buyer known as
     Then status 200
     And print 'Response Body -> ',response
     And match response contains 'deleted'
-
 
   @regression @smoke
   Scenario: delete supplier buyer known as detail 400
@@ -37,7 +35,6 @@ Feature: supplier buy - DELETE supplier buyer known as
     Then status 404
     And print 'Response Body -> ',response
     And match response.description contains 'not found'
-
 
   @regression @smoke
   Scenario Outline: delete supplier buyer known as details 401

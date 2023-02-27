@@ -11,7 +11,7 @@ Feature: Files - GET file
     * def fileId = createFileCall.file_id
     * def orgId = createFileCall.org_id
     Given path '/data/files'
-    * path fileId + '/url'
+    * path fileId + '/download'
     And header Authorization = tealbookAdminToken
     When method GET
     Then status 200
@@ -21,7 +21,7 @@ Feature: Files - GET file
   @regression @smoke
   Scenario: get file by id detail 400
     Given path '/data/files'
-    * path '12345/url'
+    * path '12345/download'
     And header Authorization = tealbookAdminToken
     When method GET
     Then status 400
@@ -31,7 +31,7 @@ Feature: Files - GET file
   @regression @smoke
   Scenario: get file id detail 404
     Given path '/data/files'
-    * path randomUuid + '/url'
+    * path randomUuid + '/download'
     And header Authorization = tealbookAdminToken
     When method GET
     Then status 404
@@ -43,7 +43,7 @@ Feature: Files - GET file
     * def createFileCall = call read('uploadFile.feature@postFile')
     * def fileId = createFileCall.file_id
     Given path '/data/files'
-    * path fileId + '/url'
+    * path fileId + '/download'
     And header Authorization = '<key>'
     When method GET
     Then status 401
