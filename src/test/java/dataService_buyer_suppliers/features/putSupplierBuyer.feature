@@ -1,8 +1,10 @@
-Feature: supplier buy - GET supplier buyer known as
+Feature: supplier buy - PUT supplier buyer
 
   Background:
     * url baseURL
     * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
+    * def putSupplierBuyerRequestBody = read('../requests/putSupplierBuyer.json')
+    * def randomCompanyName = Java.type('utils.GenerateRandomVariables').randomName()
 
   @setup
   Scenario:
@@ -13,17 +15,19 @@ Feature: supplier buy - GET supplier buyer known as
     * def cdaToken = tealbookCdaToken
 
   @regression @smoke
-  Scenario Outline: get supplier buyer known as detail
+  Scenario Outline: PUT supplier buyer detail 200
     * def getSupplierBuyerCall = call read('getSupplierBuyer.feature@getSupplierBuyer')
-    * def buyer_known_as_id = getSupplierBuyerCall.buyer_known_as_id
-    * def companyName = getSupplierBuyerCall.company_name
-    Given path '/data/suppliers/buyer/buyer_known_as'
-    * path buyer_known_as_id[0]
+    * def buyer_supplier_id  = getSupplierBuyerCall.buyer_supplier_id
+    Given path '/data/suppliers/buyer'
+    * path buyer_supplier_id[0]
     And header Authorization = tealbookAdminToken
-    When method GET
+    * set putSupplierBuyerRequestBody.company_name = randomCompanyName
+    When request putSupplierBuyerRequestBody
+    And print 'Request Body -> ',putSupplierBuyerRequestBody
+    When method PUT
     Then status 200
     And print 'Response Body -> ',response
-    And match response.company_name == companyName
+    And match response.buyer_known_as[0].company_name == randomCompanyName
     Examples:
       | token                       |
       | karate.setup().adminToken   |
@@ -33,23 +37,24 @@ Feature: supplier buy - GET supplier buyer known as
       | karate.setup().dqToken      |
 
 
-
   @regression @smoke
-  Scenario: get supplier buyer known as detail 400
-    Given path '/data/suppliers/buyer/buyer_known_as'
+  Scenario: put supplier buyer known as detail 400
+    Given path '/data/suppliers/buyer'
     * path '12345'
     And header Authorization = tealbookAdminToken
-    When method GET
+    When request putSupplierBuyerRequestBody
+    When method PUT
     Then status 400
     And print 'Response Body -> ',response
     And assert response.description == 'Input failed validation.'
 
   @regression @smoke
   Scenario: get supplier buyer known as detail 404
-    Given path '/data/suppliers/buyer/buyer_known_as'
+    Given path '/data/suppliers/buyer'
     * path randomUuid
     And header Authorization = tealbookAdminToken
-    When method GET
+    When request putSupplierBuyerRequestBody
+    When method PUT
     Then status 404
     And print 'Response Body -> ',response
     And match response.description contains 'not found'
@@ -57,15 +62,14 @@ Feature: supplier buy - GET supplier buyer known as
 
   @regression @smoke
   Scenario Outline: get supplier buyer known as details 401
-    * def createSupplierBuyerCall = call read('postBuyerKnownAs.feature@postBuyer')
-    * def buyer_known_as_id = createSupplierBuyerCall.buyer_known_as_id
-    Given path '/data/suppliers/buyer/buyer_known_as'
-    * path buyer_known_as_id
+    Given path '/data/suppliers/buyer'
+    * path '12345'
     And header Authorization = '<key>'
-    When method GET
+    When request putSupplierBuyerRequestBody
+    When method PUT
     Then status 401
     And print 'Response Body -> ',response
     And assert response.description == '<response>'
     Examples:
-      | key          | response                   |
-      | ksjd         | no bearer token in request |
+      | key  | response                   |
+      | ksjd | no bearer token in request |

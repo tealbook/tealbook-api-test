@@ -1,4 +1,4 @@
-Feature: supplier buy - GET supplier buyer known as
+Feature: supplier buy - GET supplier buyer
 
   Background:
     * url baseURL
@@ -13,17 +13,17 @@ Feature: supplier buy - GET supplier buyer known as
     * def cdaToken = tealbookCdaToken
 
   @regression @smoke
-  Scenario Outline: get supplier buyer known as detail
+  Scenario Outline: get supplier buyer detail 200
     * def getSupplierBuyerCall = call read('getSupplierBuyer.feature@getSupplierBuyer')
-    * def buyer_known_as_id = getSupplierBuyerCall.buyer_known_as_id
+    * def buyer_supplier_id  = getSupplierBuyerCall.buyer_supplier_id
     * def companyName = getSupplierBuyerCall.company_name
-    Given path '/data/suppliers/buyer/buyer_known_as'
-    * path buyer_known_as_id[0]
+    Given path '/data/suppliers/buyer'
+    * path buyer_supplier_id[0]
     And header Authorization = tealbookAdminToken
     When method GET
     Then status 200
     And print 'Response Body -> ',response
-    And match response.company_name == companyName
+    And match response.buyer_known_as[0].company_name == companyName[0]
     Examples:
       | token                       |
       | karate.setup().adminToken   |
@@ -36,7 +36,7 @@ Feature: supplier buy - GET supplier buyer known as
 
   @regression @smoke
   Scenario: get supplier buyer known as detail 400
-    Given path '/data/suppliers/buyer/buyer_known_as'
+    Given path '/data/suppliers/buyer'
     * path '12345'
     And header Authorization = tealbookAdminToken
     When method GET
@@ -46,7 +46,7 @@ Feature: supplier buy - GET supplier buyer known as
 
   @regression @smoke
   Scenario: get supplier buyer known as detail 404
-    Given path '/data/suppliers/buyer/buyer_known_as'
+    Given path '/data/suppliers/buyer'
     * path randomUuid
     And header Authorization = tealbookAdminToken
     When method GET
@@ -57,10 +57,8 @@ Feature: supplier buy - GET supplier buyer known as
 
   @regression @smoke
   Scenario Outline: get supplier buyer known as details 401
-    * def createSupplierBuyerCall = call read('postBuyerKnownAs.feature@postBuyer')
-    * def buyer_known_as_id = createSupplierBuyerCall.buyer_known_as_id
-    Given path '/data/suppliers/buyer/buyer_known_as'
-    * path buyer_known_as_id
+    Given path '/data/suppliers/buyer'
+    * path '12345'
     And header Authorization = '<key>'
     When method GET
     Then status 401

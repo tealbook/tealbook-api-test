@@ -3,15 +3,22 @@ Feature: Files - GET files
   Background:
     * url baseURL
 
+  @setup
+  Scenario:
+    * def adminToken = tealbookAdminToken
+    * def supportToken = tealbookSupportToken
+    * def csmToken = tealbookCsmToken
+    * def dqToken = tealbookDqToken
+    * def cdaToken = tealbookCdaToken
 
 
   @regression @smoke
-  Scenario: get files detail
+  Scenario Outline: get files detail 200
     * def createFileCall = call read('uploadFile.feature@postFile')
     * def fileId = createFileCall.file_id
     * def orgId = createFileCall.org_id
     Given path '/data/files'
-    And header Authorization = tealbookAdminToken
+    And header Authorization = <token>
     When method GET
     Then status 200
     And print 'Response Body -> ',response
@@ -22,6 +29,13 @@ Feature: Files - GET files
     And print fileIds
     And match each orgIds == orgId
     And match fileIds contains fileId
+    Examples:
+      | token                       |
+      | karate.setup().adminToken   |
+      | karate.setup().supportToken |
+      | karate.setup().csmToken     |
+      | karate.setup().cdaToken     |
+      | karate.setup().dqToken      |
 
 
   @regression @smoke
@@ -33,5 +47,5 @@ Feature: Files - GET files
     And print 'Response Body -> ',response
     And assert response.description=='<response>'
     Examples:
-      | key          | response                   |
-      | ksjd         | no bearer token in request |
+      | key  | response                   |
+      | ksjd | no bearer token in request |

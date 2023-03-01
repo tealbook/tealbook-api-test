@@ -1,0 +1,14 @@
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "random@tealbook.com",
+  "enabled": true,
+  "orgId": "bcd9cf16-e5ee-45ae-b8f8-f0a42420d81b",
+  "permissions": [
+    "client-org/pipelines.read:*",
+    "client-org/files.read:*",
+    "profiles.read:*",
+    "client-org/settings.read:*",
+    "users.read:*"
+  ]
+}

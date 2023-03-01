@@ -17,10 +17,10 @@ var tealbookSupport = karate.callSingle('classpath:tokenFeature/tealbookSupport.
 config.tealbookSupportToken = tealbookSupport.token ;
 var tealbookCda = karate.callSingle('classpath:tokenFeature/tealbookCda.feature',config)
 config.tealbookCdaToken = tealbookCda.token ;
-var buyerOrgAdmin = karate.callSingle('classpath:tokenFeature/buyerOrgAdmin.feature',config)
-config.buyerOrgAdminToken = buyerOrgAdmin.token ;
-var buyerOrgUser = karate.callSingle('classpath:tokenFeature/buyerOrgUser.feature',config)
-config.buyerOrgUserToken = buyerOrgUser.token ;}
+var tealbookDq = karate.callSingle('classpath:tokenFeature/tealbookDq.feature',config)
+config.tealbookDqToken = tealbookDq.token ;
+var tealbookCsm = karate.callSingle('classpath:tokenFeature/tealbookCsm.feature',config)
+config.tealbookCsmToken = tealbookCsm.token ;}
 else if (env=='staging'){
 baseURL : 'https://api-stage.tealbook.com'
 var tealbookAdmin = karate.callSingle('classpath:tokenFeature/tealbookAdmin.feature',config)
