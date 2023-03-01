@@ -21,7 +21,7 @@ Feature: supplier buyer - GET buyer internal source
 
 
   @regression @smoke
-  Scenario: get bueyrs internal source detail 400
+  Scenario: get buyers internal source detail 400
     Given path '/data/suppliers/buyer/internal_source'
     And header Authorization = tealbookAdminToken
     When method GET

@@ -4,19 +4,33 @@ Feature: Files - GET file
     * url baseURL
     * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
 
+  @setup
+  Scenario:
+    * def adminToken = tealbookAdminToken
+    * def supportToken = tealbookSupportToken
+    * def csmToken = tealbookCsmToken
+    * def dqToken = tealbookDqToken
+    * def cdaToken = tealbookCdaToken
 
   @regression @smoke
-  Scenario: get file id detail
+  Scenario Outline: get file id detail 200
     * def createFileCall = call read('uploadFile.feature@postFile')
     * def fileId = createFileCall.file_id
     * def orgId = createFileCall.org_id
     Given path '/data/files'
     * path fileId + '/download'
-    And header Authorization = tealbookAdminToken
+    And header Authorization = <token>
     When method GET
     Then status 200
     And print 'Response Body -> ',response
     And assert response.organization_id == orgId
+    Examples:
+      | token                       |
+      | karate.setup().adminToken   |
+      | karate.setup().supportToken |
+      | karate.setup().csmToken     |
+      | karate.setup().cdaToken     |
+      | karate.setup().dqToken      |
 
   @regression @smoke
   Scenario: get file by id detail 400
@@ -50,5 +64,5 @@ Feature: Files - GET file
     And print 'Response Body -> ',response
     And assert response.description=='<response>'
     Examples:
-      | key          | response                   |
-      | ksjd         | no bearer token in request |
+      | key  | response                   |
+      | ksjd | no bearer token in request |

@@ -1,3 +1,4 @@
+@data
 Feature: pipelines - POST pipeline
 
   Background:
@@ -6,8 +7,15 @@ Feature: pipelines - POST pipeline
     * def createFileCall = call read('uploadFile.feature@postFile')
     * def fileName = createFileCall.file_name
 
+  @setup
+  Scenario:
+    * def adminToken = tealbookAdminToken
+    * def supportToken = tealbookSupportToken
+    * def csmToken = tealbookCsmToken
+    * def dqToken = tealbookDqToken
+    * def cdaToken = tealbookCdaToken
 
-  @regression @smoke @postPipeline
+  @postPipeline
   Scenario: post pipeline
     Given path '/data/pipelines'
     And header Authorization = tealbookAdminToken
@@ -18,7 +26,43 @@ Feature: pipelines - POST pipeline
     Then status 200
     And print 'Response Body -> ',response
     * def pipeline_id = response.pipeline_id
+    * def batch_id = response.inputs[0].batch_id
+    * def file_name = response.inputs[0].file_name
+    * print batch_id
 
+  @regression @smoke
+  Scenario Outline: post pipeline
+    Given path '/data/pipelines'
+    And header Authorization = <token>
+    When request postPipelineRequestBody
+    * set postPipelineRequestBody.source.file_name = fileName
+    And print 'Request Body -> ',postPipelineRequestBody
+    When method POST
+    Then status 200
+    And print 'Response Body -> ',response
+    And assert response.status == 'queued'
+    And assert response.pipeline_type == 'client_data_vendor'
+    Examples:
+      | token                     |
+      | karate.setup().adminToken |
+      | karate.setup().cdaToken   |
+      | karate.setup().dqToken    |
+
+  @regression @smoke
+  Scenario Outline: post pipeline 403
+    Given path '/data/pipelines'
+    And header Authorization = <token>
+    When request postPipelineRequestBody
+    * set postPipelineRequestBody.source.file_name = fileName
+    And print 'Request Body -> ',postPipelineRequestBody
+    When method POST
+    Then status 403
+    And print 'Response Body -> ',response
+    And assert response.message == 'Forbidden resource'
+    Examples:
+      | token                       |
+      | karate.setup().csmToken     |
+      | karate.setup().supportToken |
 
   @regression @smoke
   Scenario Outline: post pipeline details 400

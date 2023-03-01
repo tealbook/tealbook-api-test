@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
 
 public class GenerateRandomVariables {
@@ -76,6 +77,10 @@ public class GenerateRandomVariables {
         List<String> permissionGroupList = new ArrayList<>(Arrays.asList("Orca Client","Support","CDA","IT ADMIN","DEV_TEST","Dev Users"));
         Random random = new Random();
         return permissionGroupList.get(random.nextInt(permissionGroupList.size()));
+    }
+
+    public static String currentUtcTimeStamp() {
+        return Instant.now().toString();
     }
 
 }

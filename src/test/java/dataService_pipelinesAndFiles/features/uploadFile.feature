@@ -3,7 +3,15 @@ Feature: files - POST files
   Background:
     * url baseURL
 
-  @regression @smoke @postFile
+  @setup
+  Scenario:
+    * def adminToken = tealbookAdminToken
+    * def supportToken = tealbookSupportToken
+    * def csmToken = tealbookCsmToken
+    * def dqToken = tealbookDqToken
+    * def cdaToken = tealbookCdaToken
+
+  @postFile
   Scenario: post file
     Given path '/data/files/upload'
     And header Authorization = tealbookAdminToken
@@ -14,6 +22,38 @@ Feature: files - POST files
     * def file_name = response.file_name
     * def org_id = response.organization_id
     * def file_id = response.file_storage_id
+
+
+  @regression @smoke
+  Scenario Outline: post file 200
+    Given path '/data/files/upload'
+    And header Authorization = <token>
+    And multipart file file = {read:'Rutgers_11.csv', filename:'Rutgers11.csv',contentType:'text/csv'}
+    When method POST
+    Then status 201
+    And print 'Response Body -> ',response
+    And assert response.original_name == 'Rutgers11.csv'
+    Examples:
+      | token                     |
+      | karate.setup().adminToken |
+      | karate.setup().cdaToken   |
+      | karate.setup().dqToken    |
+
+
+  @regression @smoke
+  Scenario Outline: post file 403
+    Given path '/data/files/upload'
+    And header Authorization = <token>
+    And multipart file file = {read:'Rutgers_11.csv', filename:'Rutgers11.csv',contentType:'text/csv'}
+    When method POST
+    Then status 403
+    And print 'Response Body -> ',response
+    And print 'Response Body -> ',response
+    And assert response.message == 'Forbidden resource'
+    Examples:
+      | token                       |
+      | karate.setup().csmToken     |
+      | karate.setup().supportToken |
 
 
   @regression @smoke
@@ -36,8 +76,8 @@ Feature: files - POST files
     And print 'Response Body -> ',response
     And assert response.description=='<response>'
     Examples:
-      | key          | response                   |
-      | ksjd         | no bearer token in request |
+      | key  | response                   |
+      | ksjd | no bearer token in request |
 
 
 
