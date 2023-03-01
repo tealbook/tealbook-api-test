@@ -74,7 +74,7 @@ Feature: put pipelines using account service
   @regression @smoke
   Scenario: put pipelines  400
     * def createPipelinesCall = call read('postPipeline.feature@postPipeline')
-    * def id = createPipelinesCall.pipelines_id
+    * def id = createPipelinesCall.pipeline_id
     Given path '/data/pipelines'
     * path id
     And header Authorization = tealbookAdminToken
@@ -102,7 +102,7 @@ Feature: put pipelines using account service
   @regression @smoke
   Scenario Outline: put pipelines details 401
     * def createPipelinesCall = call read('postPipeline.feature@postPipeline')
-    * def id = createPipelinesCall.pipelines_id
+    * def id = createPipelinesCall.pipeline_id
     Given path '/data/pipelines'
     * path id
     And header Authorization = '<key>'
@@ -115,6 +115,6 @@ Feature: put pipelines using account service
     And assert response.message=='<response>'
     Examples:
       | key  | response     |
-      | ksjd | Unauthorized |
+      | ksjd | no bearer token in request |
 
 
