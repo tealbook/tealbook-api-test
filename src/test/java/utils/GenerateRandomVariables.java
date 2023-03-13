@@ -11,7 +11,7 @@ public class GenerateRandomVariables {
     public static Faker faker = new Faker();
 
     public static String randomName() {
-        return faker.company().name().toString();
+        return "AutomatedTestUserGroup- "+faker.company().name().toString();
     }
 
     public static String randomTime() {
@@ -42,7 +42,7 @@ public class GenerateRandomVariables {
     }
 
     public static String randomFirstName() {
-        return faker.name().firstName();
+        return "AutomatedTestUser-"+faker.name().firstName();
     }
 
     public static String randomLastName() {
@@ -65,7 +65,7 @@ public class GenerateRandomVariables {
     }
 
     public static String randomPassword() {
-        return faker.internet().password(8,12,true,true,true);
+        return faker.internet().password(8,24,true,true,true);
     }
 
     public static String randomOrgType() {

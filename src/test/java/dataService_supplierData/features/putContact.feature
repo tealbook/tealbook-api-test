@@ -1,3 +1,4 @@
+@data
 Feature: supplier data - PUT contact
 
   Background:

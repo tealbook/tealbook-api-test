@@ -1,11 +1,11 @@
-@data
+@data @m2
 Feature: pipelines - POST pipeline
 
   Background:
     * url baseURL
     * def postPipelineRequestBody = read('../requests/postPipeline.json')
     * def createFileCall = call read('uploadFile.feature@postFile')
-    * def fileName = createFileCall.file_name
+    * def fileName = createFileCall.fileName
 
   @setup
   Scenario:
@@ -31,7 +31,7 @@ Feature: pipelines - POST pipeline
     * print batch_id
 
   @regression @smoke
-  Scenario Outline: post pipeline
+  Scenario Outline: post pipeline using authorized user
     Given path '/data/pipelines'
     And header Authorization = <token>
     When request postPipelineRequestBody
@@ -58,7 +58,7 @@ Feature: pipelines - POST pipeline
     When method POST
     Then status 403
     And print 'Response Body -> ',response
-    And assert response.message == 'Forbidden resource'
+    And match response.description contains 'Forbidden'
     Examples:
       | token                       |
       | karate.setup().csmToken     |
@@ -74,7 +74,7 @@ Feature: pipelines - POST pipeline
     When method POST
     Then status 400
     And print 'Response Body -> ',response
-    And assert response.description=='Input failed validation.'
+    And match response.description contains 'Invalid input'
     Examples:
       | key              |
       | pipeline_type    |

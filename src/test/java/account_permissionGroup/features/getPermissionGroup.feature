@@ -79,7 +79,7 @@ Feature: get permission using account service
     When method GET
     Then status 401
     And print 'Response Body -> ',response
-    And assert response.message=='<response>'
+    And assert response.message =='<response>'
     Examples:
       | key  | response     |
       | ksjd | Unauthorized |

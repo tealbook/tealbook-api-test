@@ -1,3 +1,4 @@
+@data
 Feature: supplier buy - GET supplier buyer known as
 
   Background:

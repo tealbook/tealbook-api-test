@@ -1,3 +1,4 @@
+@data
 Feature: supplier buy - DELETE supplier buyer known as
 
   Background:

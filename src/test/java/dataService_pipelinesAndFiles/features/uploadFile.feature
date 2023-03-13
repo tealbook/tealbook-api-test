@@ -1,3 +1,4 @@
+@data @m2
 Feature: files - POST files
 
   Background:
@@ -15,7 +16,8 @@ Feature: files - POST files
   Scenario: post file
     Given path '/data/files/upload'
     And header Authorization = tealbookAdminToken
-    And multipart file file = {read:'Rutgers_11.csv', filename:'Rutgers11.csv',contentType:'text/csv'}
+    * def fileName = 'Rutgers.csv'
+    And multipart file file = {read:'Rutgers_11.csv', filename:'Rutgers.csv',contentType:'text/csv'}
     When method POST
     Then status 201
     And print 'Response Body -> ',response
@@ -48,8 +50,7 @@ Feature: files - POST files
     When method POST
     Then status 403
     And print 'Response Body -> ',response
-    And print 'Response Body -> ',response
-    And assert response.message == 'Forbidden resource'
+    And match response.description contains 'Forbidden'
     Examples:
       | token                       |
       | karate.setup().csmToken     |

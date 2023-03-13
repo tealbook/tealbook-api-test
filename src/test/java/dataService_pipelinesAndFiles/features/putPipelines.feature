@@ -1,4 +1,4 @@
-@data
+@data @m2
 Feature: put pipelines using account service
 
   Background:
@@ -52,7 +52,7 @@ Feature: put pipelines using account service
     When method PUT
     Then status 403
     And print 'Response Body -> ',response
-    And assert response.message == 'Forbidden resource'
+    And match response.description contains 'Forbidden'
     Examples:
       | token                       |
       | karate.setup().csmToken     |

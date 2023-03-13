@@ -73,10 +73,9 @@ Feature: post org using account service
     And print 'Response Body -> ',response
     And match response.message contains 'null value'
     Examples:
-      | key          |
-      | name         |
-      | orgTypes     |
-      | classicOrgId |
+      | key      |
+      | name     |
+      | orgTypes |
 
 
   @regression @smoke

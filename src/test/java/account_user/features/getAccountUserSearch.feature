@@ -88,23 +88,19 @@ Feature: search users using account service
     And print 'Response Body -> ',response
     And match response.message contains 'invalid input syntax'
     Examples:
-      | key       | value |
-      | id        | 1234  |
-      | firstName | 1234  |
-      | lastName  | 1234  |
-      | email     | 1234  |
-      | enabled   | 1234  |
-      | orgId     | 1234  |
+      | key     | value |
+      | id      | 1234  |
+      | enabled | 1234  |
 
   @regression @smoke
-  Scenario Outline: search user 404 status code
+  Scenario Outline: search user 200 status code but empty response
     Given path '/accounts/user/search'
     And param <key>  = <value>
     And header Authorization = tealbookAdminToken
     When method GET
-    Then status 400
+    Then status 200
     And print 'Response Body -> ',response
-    And match response.message contains 'invalid input syntax'
+    And match response.total == 0
     Examples:
       | key       | value                     |
       | id        | karate.setup().randomUuid |

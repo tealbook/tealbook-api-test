@@ -1,3 +1,4 @@
+@data
 Feature: supplier buyer - GET buyer internal source
 
   Background:

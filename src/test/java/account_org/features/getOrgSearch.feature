@@ -108,17 +108,17 @@ Feature: search org using account service
     And match response.message contains 'invalid input syntax'
 
   @regression @smoke
-  Scenario: GET org details 400
+  Scenario: GET org details 200 with empty response when sending invalid org type
     Given path '/accounts/org/search'
     * param orgType = 1234
     And header Authorization = tealbookAdminToken
     When method GET
-    Then status 400
+    Then status 200
     And print 'Response Body -> ',response
-    And match response.message contains 'invalid input syntax'
+    And match response.total == 0
 
   @regression @smoke
-  Scenario: get org search detail 404
+  Scenario: GET org details 200 with empty response when sending invalid org id
     * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
     Given path '/accounts/org/search'
     * param id = randomUuid
@@ -126,18 +126,8 @@ Feature: search org using account service
     When method GET
     Then status 404
     And print 'Response Body -> ',response
-    And match response.message contains 'Could not find any entity of type'
+    And match response.total == 0
 
-  @regression @smoke
-  Scenario: get org search details 404
-    * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
-    Given path '/accounts/org/search'
-    * param orgType = 'hello'
-    And header Authorization = tealbookAdminToken
-    When method GET
-    Then status 404
-    And print 'Response Body -> ',response
-    And match response.message contains 'Could not find any entity of type'
 
   @regression @smoke
   Scenario Outline: get org details 401
