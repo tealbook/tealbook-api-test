@@ -88,18 +88,17 @@ Feature: search permission groups using account service
     Examples:
       | key    | value |
       | userId | 1234  |
-      | name   | 1234  |
 
 
   @regression @smoke
-  Scenario Outline: search user 404 status code
+  Scenario Outline: search user 200 status code with empty response
     Given path '/accounts/permission-group/search'
     And param <key>  = <value>
     And header Authorization = tealbookAdminToken
     When method GET
-    Then status 400
+    Then status 200
     And print 'Response Body -> ',response
-    And match response.message contains 'invalid input syntax'
+    And match response.total == 0
     Examples:
       | key    | value                     |
       | userId | karate.setup().randomUuid |

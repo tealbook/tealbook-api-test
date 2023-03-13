@@ -10,7 +10,7 @@ env : env,
 baseURL : 'https://api-poc3.tealbook.com',
 }
 if (env=='dev'){
-baseURL : 'https://api-poc3.tealbook.com'
+baseURL : 'https://stage-poc3.tealbook.com'
 var tealbookAdmin = karate.callSingle('classpath:tokenFeature/tealbookAdmin.feature',config)
 config.tealbookAdminToken = tealbookAdmin.token ;
 var tealbookSupport = karate.callSingle('classpath:tokenFeature/tealbookSupport.feature',config)

@@ -1,3 +1,4 @@
+@data
 Feature: supplier buy - PUT supplier buyer
 
   Background:

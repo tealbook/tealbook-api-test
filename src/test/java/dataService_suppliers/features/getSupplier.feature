@@ -1,3 +1,4 @@
+@data
 Feature: pipelines - GET supplier
 
   Background:

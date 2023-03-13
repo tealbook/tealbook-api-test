@@ -50,7 +50,7 @@ Feature: post user using account service
     When method POST
     Then status 201
     And print 'Response Body -> ',response
-    And assert response.email = randomEmail
+    And assert response.email == randomEmail
     And assert response.firstName == randomFirstName
     And assert response.lastName == randomLastName
     Examples:
@@ -91,7 +91,6 @@ Feature: post user using account service
       | firstName |
       | lastName  |
       | email     |
-      | enabled   |
 
 
   @regression @smoke

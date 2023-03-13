@@ -26,7 +26,7 @@ Feature: put user password using account service
     * set putUserPasswordRequestBody.password = password
     And print 'Request Body -> ',putUserPasswordRequestBody
     When method PUT
-    Then status 200
+    Then status 204
     And print 'Response Body -> ',response
 #    And match response.email == email
     Examples:
@@ -56,7 +56,7 @@ Feature: put user password using account service
   @regression @smoke
   Scenario: put user password details 400
     Given path '/accounts/user'
-    * path '12345'
+    * path '12345' + '/password'
     And header Authorization = tealbookAdminToken
     When request putUserPasswordRequestBody
     And print 'Request Body -> ',putUserPasswordRequestBody

@@ -1,3 +1,4 @@
+@data
 Feature: suppliers - POST supplier
 
   Background:

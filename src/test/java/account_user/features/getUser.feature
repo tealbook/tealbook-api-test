@@ -60,7 +60,7 @@ Feature: get user using account service
     And match response.message contains 'invalid input syntax'
 
   @regression @smoke
-  Scenario: get user id detail 404
+  Scenario: get user id detail 200 with empty response body
     * def randomUuid = Java.type('utils.GenerateRandomVariables').randomUuid()
     Given path '/accounts/user'
     * path randomUuid

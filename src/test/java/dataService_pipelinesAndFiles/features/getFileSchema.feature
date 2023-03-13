@@ -1,3 +1,4 @@
+@data @m2
 Feature: Files - GET files schema
 
   Background:

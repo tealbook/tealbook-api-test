@@ -24,6 +24,7 @@ Feature: put org using account service
     And header Authorization = <token>
     * set postOrgRequestBody.name = randomCompanyName
     And print 'Request Body -> ',postOrgRequestBody
+    When request postOrgRequestBody
     When method PUT
     Then status 200
     And print 'Response Body -> ',response
